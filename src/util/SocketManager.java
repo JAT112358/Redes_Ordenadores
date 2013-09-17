@@ -1,4 +1,4 @@
-package Practica1IntroSockets;
+package util;
 import java.net.*;
 import java.io.*;
 
