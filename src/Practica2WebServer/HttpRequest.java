@@ -5,27 +5,32 @@ import java.net.*;
 import java.util.*;
 import util.*;
 
-final class HttpRequest implements Runnable {
-
+final class HttpRequest implements Runnable 
+{
   final static String CRLF = "\r\n";
   SocketManager sockManager;
 
   // Constructor
-  public HttpRequest(SocketManager sockMan) throws Exception {
+  public HttpRequest(SocketManager sockMan) throws Exception 
+  {
     sockManager = sockMan;
   }
 
   // Implement the run() method of the Runnable interface.
-  public void run() {
-    try {
+  public void run() 
+  {
+    try 
+    {
       processRequest();
     }
-    catch (Exception e) {
+    catch (Exception e) 
+    {
       System.out.println(e);
     }
   }
 
-  private void processRequest() throws Exception {
+  private void processRequest() throws Exception 
+  {
     // Get the request line of the HTTP request message.
     String requestLine = sockManager.Leer();
     System.out.println("RequestLine: " + requestLine);
@@ -35,14 +40,16 @@ final class HttpRequest implements Runnable {
     tokens.nextToken(); // skip over the method, which should be "GET"
     //System.out.println("Next Token: "+tokens.nextToken());
     String fileName = tokens.nextToken();
-    fileName = "archivos/" + fileName;
+    fileName = "files/" + fileName;
     // Open the requested file.
     FileInputStream fis = null;
     boolean fileExists = true;
-    try {
+    try 
+    {
       fis = new FileInputStream(fileName);
     }
-    catch (FileNotFoundException e) {
+    catch (FileNotFoundException e) 
+    {
       fileExists = false;
       System.out.println("No abre fichero");
     }
@@ -62,7 +69,7 @@ final class HttpRequest implements Runnable {
     String entityBody = null;
     if (fileExists) {
       //statusLine = INTRODUCIR AQUI;
-      //contentTypeLine = INTRODUCIR AQUI usando la función contentType que os doy implementada;
+      contentTypeLine = contentType(fileName);
     }
     else {
       //StatusLine = INTRODUCIR AQUI;
@@ -80,7 +87,8 @@ final class HttpRequest implements Runnable {
     //INTRODUCIR AQUI
 
     // Send the entity body.
-    if (fileExists) {
+    if (fileExists) 
+    {
       sendBytes(fis);
       fis.close();
     }
@@ -102,7 +110,8 @@ final class HttpRequest implements Runnable {
     //INTRODUCIR AQUI
    }
 
-  private static String contentType(String fileName) {
+  private static String contentType(String fileName) 
+  {
     if (fileName.endsWith(".htm") || fileName.endsWith(".html")) {
       return "text/html";
     }
