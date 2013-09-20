@@ -2,17 +2,9 @@ package Practica1IntroSockets;
 import java.net.*;
 import java.io.*;
 
-/**
- * <p>Title: practica1</p>
- *
- * <p>Description: Introduccion a los sockets</p>
- *
- * <p>Copyright: Copyright (c) 2005</p>
- *
- * <p>Company: ESIDE</p>
- *
- * @version 1.0
- */
+import util.SocketManager;
+
+
 public class TCPClient 
 {
     public static void main(String[] args) throws Exception 
@@ -22,36 +14,30 @@ public class TCPClient
         try {
             //Se crea el socket, pasando el nombre del servidor y el puerto de conexión
         	//INTRODUCIR AQUI
-        	Socket clientSocket = new Socket("127.0.0.1", 6000);
-
-            //Se inicializan los streams de lectura y escritura del socket
-        	ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
-    		output.flush();
-    		ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
+        	SocketManager clientSocket = new SocketManager(new Socket("127.0.0.1", 6000));
             
     		//Se declara un buffer de lectura del
             //dato escrito por el usuario por teclado
             //es necesario pq no es un buffer propio de los sockets
         	BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
             
-        	//Se almacena en "sentence" la linea introducida por teclado
-        	sentence = inFromUser.readLine();
-
             while (!sentence.equals("adios")) 
             {
                 System.out.print("String a enviar: ");
                 sentence = inFromUser.readLine();
                 //El método Escribir, pone en el socket lo introducido por teclado
                 //INTRODUCIR AQUI
-                
-                
+                clientSocket.Escribir(sentence+"\n");
                 //El método Leer, lee del socket lo enviado por el Servidor
                 //INTRODUCIR AQUI 
+                modifiedSentence = clientSocket.Leer();
                 //Saca por consola la frase modificada enviada por el servidor
                 //INTRODUCIR AQUI
+                System.out.println("Frase mayusculas: "+modifiedSentence);
             }
             System.out.println("Fin de la práctica");
             //INTRODUCIR AQUI
+            clientSocket.CerrarSocket();
         } catch (Exception e) {
 			System.err.println("main: " + e);
 			e.printStackTrace();

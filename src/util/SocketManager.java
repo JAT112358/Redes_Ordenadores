@@ -55,6 +55,7 @@ public class SocketManager {
      */
     public void InicializaStreams() throws IOException {
         bufferEscritura = new DataOutputStream(mySocket.getOutputStream());
+        bufferEscritura.flush();
         bufferLectura = new BufferedReader(new InputStreamReader(mySocket.
                 getInputStream()));
     }
