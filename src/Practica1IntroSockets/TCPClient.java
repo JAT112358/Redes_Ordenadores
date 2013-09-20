@@ -9,11 +9,10 @@ public class TCPClient
 {
     public static void main(String[] args) throws Exception 
     {
-        String sentence=""; //Variable dnd se almacena la frase introducida por el usuario
+        String sentence=""; 		//Variable dnd se almacena la frase introducida por el usuario
         String modifiedSentence=""; //Variable dnd se recibe la frase capitalizada
         try {
             //Se crea el socket, pasando el nombre del servidor y el puerto de conexión
-        	//INTRODUCIR AQUI
         	SocketManager clientSocket = new SocketManager(new Socket("127.0.0.1", 6000));
             
     		//Se declara un buffer de lectura del
@@ -25,20 +24,22 @@ public class TCPClient
             {
                 System.out.print("String a enviar: ");
                 sentence = inFromUser.readLine();
+              
                 //El método Escribir, pone en el socket lo introducido por teclado
-                //INTRODUCIR AQUI
                 clientSocket.Escribir(sentence+"\n");
+               
                 //El método Leer, lee del socket lo enviado por el Servidor
-                //INTRODUCIR AQUI 
                 modifiedSentence = clientSocket.Leer();
+                
                 //Saca por consola la frase modificada enviada por el servidor
-                //INTRODUCIR AQUI
                 System.out.println("Frase mayusculas: "+modifiedSentence);
             }
             System.out.println("Fin de la práctica");
-            //INTRODUCIR AQUI
+            clientSocket.CerrarStreams();
             clientSocket.CerrarSocket();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
 			System.err.println("main: " + e);
 			e.printStackTrace();
         }
