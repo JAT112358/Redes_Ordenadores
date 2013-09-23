@@ -14,19 +14,15 @@ public final class WebServer
 		while (true)
 		{
 			//Aceptar la nueva petición y crear el SocketManager para gestionar el Socket obtenido
-			//INTRODUCIR AQUI
 			SocketManager clientSocket = new SocketManager(serverSocket.accept());
 			
 			//Crear un objeto HttpRequest para gestionar la petición
-			//INTRODUCIR AQUI
 			HttpRequest httprequest = new HttpRequest(clientSocket);
 			
 			//Crear un Thread para el objeto HttpRequest
-			//INTRODUCIR AQUI
 			Thread clientThread = new Thread(httprequest);
 			
 			//Arrancar el Thread
-			//INTRODUCIR AQUI
 			clientThread.start();
 		}
 	}
