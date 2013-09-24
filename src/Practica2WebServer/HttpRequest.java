@@ -17,6 +17,7 @@ final class HttpRequest implements Runnable
 	  public HttpRequest(SocketManager sockMan) throws Exception 
 	  {
 		  sockManager = sockMan;
+		  sockMan.InicializaStreams();
 	  }
 	
 	  // Implement the run() method of the Runnable interface.
