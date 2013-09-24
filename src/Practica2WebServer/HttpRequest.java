@@ -73,36 +73,33 @@ final class HttpRequest implements Runnable
 		    String entityBody = null;
 		    if (fileExists) 
 		    {
-				//statusLine = INTRODUCIR AQUI;
-		    	statusLine = requestLine;
+				statusLine =  "HTTP/1.0 200 OK";
 				contentTypeLine = contentType(fileName);
 		    }
 		    else {
-		      //StatusLine = INTRODUCIR AQUI;
-		      //contentTypeLine = INTRODUCIR AQUI;
-		      entityBody = "<HTML>" + "<HEAD><TITLE>Not Found</TITLE></HEAD>" + "<BODY>Not Found</BODY></HTML>";
+		    	statusLine = "HTTP/1.0 404 Not Found";
+		        contentTypeLine = "Content-type: text/html"+"CRLF";
+		        entityBody = "<HTML>" + "<HEAD><TITLE>Not Found</TITLE></HEAD>" + "<BODY>Not Found</BODY></HTML>";
 		     }
 		
 		    // Send the status line.
-		    //INTRODUCIR AQUI
-		    sockManager.Escribir(statusLine);
+		    sockManager.Escribir(statusLine+CRLF);
 		
 		    // Send the content type line.
-		    //INTRODUCIR AQU
-		    sockManager.Escribir(contentTypeLine);
+		    sockManager.Escribir(contentTypeLine+CRLF);
 		
 		    // Send a blank line to indicate the end of the header lines.
-		    //INTRODUCIR AQUI
 		    sockManager.Escribir(CRLF);
-		
+		    
 		    // Send the entity body.
 		    if (fileExists) 
 		    {
 				sendBytes(fis);
 				fis.close();
 		    }
-		    else {
-		      //INTRODUCIR AQUI
+		    else 
+		    {
+		        //INTRODUCIR AQUI
 		    	sockManager.Escribir(entityBody);
 		    }
 		
@@ -117,9 +114,10 @@ final class HttpRequest implements Runnable
 			byte[] buffer = new byte[1024];
 			int bytes = 0;
 			
-			// Copy requested file into the socket's output stream.
-			//INTRODUCIR AQUI
-			sockManager.Escribir(buffer, bytes);
+			while((bytes=fis.read(buffer)) != -1)
+			{
+				sockManager.Escribir(buffer, bytes);
+			}
 	   }
 
 	   private static String contentType(String fileName) 
