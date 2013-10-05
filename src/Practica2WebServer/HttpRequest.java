@@ -1,11 +1,7 @@
 package Practica2WebServer;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
-
-import com.sun.corba.se.impl.oa.poa.AOMEntry;
-
 import util.*;
 
 final class HttpRequest implements Runnable 
@@ -17,7 +13,6 @@ final class HttpRequest implements Runnable
 	  public HttpRequest(SocketManager sockMan) throws Exception 
 	  {
 		  sockManager = sockMan;
-		  sockMan.InicializaStreams();
 	  }
 	
 	  // Implement the run() method of the Runnable interface.

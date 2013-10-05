@@ -8,6 +8,7 @@ public final class WebServer
 	{
 		// Set the port number.
 		int port = 3000;//(new Integer(argv[0])).intValue();
+		@SuppressWarnings("resource")
 		ServerSocket serverSocket = new ServerSocket(port);
 		System.out.println("Servidor inicializado en el puerto "+port);
 		
